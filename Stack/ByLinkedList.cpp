@@ -48,14 +48,14 @@ class Stack {
   int pop() {
     if (top == NULL) {
       cout << "Stack is empty";
-      return -1;
+      return 0;
     }
     Node* oldTop = top;
     top = top->next;
-    int value = oldTop->data;
+
     delete oldTop;
     size--;
-    return value;
+    return 1;
   }
   int peep() {
     if (top == NULL) {

@@ -32,12 +32,11 @@ class Stack {
   int pop() {
     if (size == 0) {
       cout << "Stack is already empty" << endl;
-      return -1;
+      return 0;
     }
-    int deleteValue = arr[size - 1];
     arr[size - 1] = 0;
     size--;
-    return deleteValue;
+    return 1;
   }
   int peep() {
     if (size == 0) {
@@ -83,8 +82,7 @@ int main() {
         stack.push();
         break;
       case 2: {
-        int val = stack.pop();
-        if (val != -1) cout << "Popped " << val << endl;
+        stack.pop();
         break;
       }
       case 3:
