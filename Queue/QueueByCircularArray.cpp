@@ -38,15 +38,16 @@ class Queue {
       front = rear = -1;
       return;
     }
-    cout << endl << "Front: " << front << " Rear " << rear << endl;
-    front = (front + 1) % MAX_SIZE;
     arr[front] = 0;
+    front = (front + 1) % MAX_SIZE;
   }
 
   void display() {
-    cout << front << ":" << rear << " " << (rear + 1) % MAX_SIZE << endl;
+    if (front == -1 && rear == -1) {
+      cout << "Queue is empty" << endl;
+      return;
+    }
     int i;
-
     for (i = front; rear != i; i = (i + 1) % MAX_SIZE) {
       cout << arr[i] << "\t";
     }
@@ -91,6 +92,7 @@ int main() {
         queue.dequeue();
         break;
       case 3:
+        cout << "Peek: " << queue.peek() << endl;
         break;
       case 4:
         queue.display();

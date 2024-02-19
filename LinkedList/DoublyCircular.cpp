@@ -56,6 +56,7 @@ class LinkedList {
     Node* newNode = createNode();
     newNode->prev = head->prev;
     newNode->next = head;
+    head->prev->next = newNode;
     head->prev = newNode;
     head = newNode;
   }
@@ -65,6 +66,7 @@ class LinkedList {
       return;
     }
     Node* ptr = head;
+    head->prev->next = head->next;
     head = head->next;
     head->prev = ptr->prev;
     delete ptr;

@@ -28,7 +28,7 @@ class LinkedList {
     int data;
     Node* currentNode = head;
     if (head != NULL) {
-      while (currentNode->next != NULL) currentNode = currentNode->next;
+      while (currentNode->next != head) currentNode = currentNode->next;
     }
     while (1) {
       cout << "Enter a number:";
@@ -50,8 +50,13 @@ class LinkedList {
       head->next = head;
       return;
     }
+    Node* lastNode = head;
+    while (lastNode->next != head) {
+      lastNode = lastNode->next;
+    }
     Node* newNode = createNode();
     newNode->next = head;
+    lastNode->next = newNode;
     head = newNode;
   }
   void deleteAtBeginning() {
@@ -60,11 +65,17 @@ class LinkedList {
       return;
     }
     Node* ptr = head;
+    Node* lastNode = head;
+
     if (head == head->next) {
       head = NULL;
       delete ptr;
       return;
     }
+    while (lastNode->next != head) {
+      lastNode = lastNode->next;
+    }
+    lastNode->next = head->next;
     head = head->next;
     delete ptr;
   }
@@ -89,6 +100,7 @@ class LinkedList {
       cout << "Linked list underflow";
       return;
     }
+
     Node* currentNode = head;
     while (currentNode->next->next != head) {
       currentNode = currentNode->next;
