@@ -6,14 +6,9 @@ class Queue {
   int MAX_SIZE, front, rear;
   int *arr;
   int checkFull() {
-    if (rear > MAX_SIZE && front == 0) {
-      cout << "dfaffdsfdd";
-      return 1;
-    } else if (rear == MAX_SIZE && front > 1) {
-      rear = 0;
-      return 0;
-    }
-    if (rear > front && rear <= MAX_SIZE) return 1;
+    int nextRear = (rear + 1) % MAX_SIZE;
+    if (nextRear == front) return 1;
+    return 0;
   }
 
  public:
@@ -27,40 +22,35 @@ class Queue {
       cout << "Queue is Full" << endl;
       return;
     }
-    if (front == -1 && rear == -1) {
-      front = rear = 0;
-    }
-    cout << "Enter a number:";
-    cin >> arr[rear];
-    rear++;
-  }
-  void dequeue() {
-    if (front == 0 && rear + 1 == front) {
-      cout << "Queue Underflow" << endl;
-      return;
-    }
-    if (front == MAX_SIZE - 1) {
+    if (front == -1) {
       front = 0;
     }
+    rear = (rear + 1) % MAX_SIZE;
+    cout << "Enter a number:";
+    cin >> arr[rear];
+  }
+  void dequeue() {
+    if (rear == -1 && front == -1) {
+      cout << "Queue is Empty" << endl;
+      return;
+    }
+    if (front == rear) {
+      front = rear = -1;
+      return;
+    }
+    cout << endl << "Front: " << front << " Rear " << rear << endl;
+    front = (front + 1) % MAX_SIZE;
     arr[front] = 0;
-    front++;
   }
 
   void display() {
-    if (rear > front) {
-      for (int i = front; i < rear; i++) {
-        cout << arr[i] << "\t";
-      }
-    }
+    cout << front << ":" << rear << " " << (rear + 1) % MAX_SIZE << endl;
+    int i;
 
-    if (front != 0 && rear < front) {
-      for (int i = front; i < MAX_SIZE; i++) {
-        cout << arr[i] << "\t";
-      }
-      for (int i = 0; i < rear; i++) {
-        cout << arr[i] << "\t";
-      }
+    for (i = front; rear != i; i = (i + 1) % MAX_SIZE) {
+      cout << arr[i] << "\t";
     }
+    cout << arr[i] << endl;
   }
 
   int peek() {
@@ -101,8 +91,12 @@ int main() {
         queue.dequeue();
         break;
       case 3:
+        break;
+      case 4:
         queue.display();
         break;
+      case 5:
+        exit(0);
     }
   }
   return 0;
