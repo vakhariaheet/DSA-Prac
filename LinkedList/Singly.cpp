@@ -69,7 +69,6 @@ class LinkedList {
   void insertAtEnd() {
     if (head == NULL) {
       head = createNode();
-      head->next = head;
       return;
     }
 
@@ -86,11 +85,17 @@ class LinkedList {
       return;
     }
     Node* currentNode = head;
+    if (currentNode->next == NULL) {
+      head = NULL;
+      delete currentNode;
+      return;
+    }
     while (currentNode->next->next != NULL) {
       currentNode = currentNode->next;
     }
-    delete currentNode->next;
+    Node* ptr = currentNode->next;
     currentNode->next = NULL;
+    delete ptr;
   }
 
   void insertAfterValue() {
@@ -123,10 +128,11 @@ class LinkedList {
     cout << "Enter a value after which you want to delete:";
     cin >> value;
     Node* currentNode = head;
+
     while (currentNode->data != value && currentNode->next != NULL) {
       currentNode = currentNode->next;
     }
-    if (currentNode->data != value) {
+    if (currentNode->data != value || currentNode->next == NULL) {
       cout << "Node not found" << endl;
       return;
     }
@@ -137,6 +143,10 @@ class LinkedList {
   }
 
   void display() {
+    if (head == NULL) {
+      cout << "List is Empty" << endl;
+      return;
+    }
     Node* currentNode = head;
     do {
       cout << currentNode->data << "\t";

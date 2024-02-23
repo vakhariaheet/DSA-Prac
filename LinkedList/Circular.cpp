@@ -102,6 +102,11 @@ class LinkedList {
     }
 
     Node* currentNode = head;
+    if (currentNode->next == head) {
+      head = NULL;
+      delete currentNode;
+      return;
+    }
     while (currentNode->next->next != head) {
       currentNode = currentNode->next;
     }
@@ -142,11 +147,10 @@ class LinkedList {
     while (currentNode->data != value && currentNode->next != head) {
       currentNode = currentNode->next;
     }
-    if (currentNode->data != value && currentNode->next == head) {
+    if (currentNode->data != value || currentNode->next == head) {
       cout << "Node not found" << endl;
       return;
     }
-
     Node* ptr = currentNode->next;
     currentNode->next = currentNode->next->next;
     delete ptr;
@@ -154,6 +158,10 @@ class LinkedList {
 
   void display() {
     Node* currentNode = head;
+    if (head == NULL) {
+      cout << "List is empty" << endl;
+      return;
+    }
     do {
       cout << currentNode->data << "\t";
       currentNode = currentNode->next;
