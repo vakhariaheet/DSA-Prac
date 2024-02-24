@@ -51,6 +51,8 @@ class LinkedList {
   void insertAtBeginning() {
     if (head == NULL) {
       head = createNode();
+      head->next = head;
+      head->prev = head;
       return;
     }
     Node* newNode = createNode();
@@ -165,6 +167,10 @@ class LinkedList {
     }
     Node* currentNode = head->next;
     cout << head->data << "\t";
+    if (head->next == head) {
+      cout << endl;
+      return;
+    }
     while (currentNode != head) {
       cout << currentNode->data << "\t";
       currentNode = currentNode->next;
@@ -238,6 +244,7 @@ int main() {
         break;
       case 10:
         return 0;
+        break;
       default:
         cout << "Invalid choice" << endl;
     }
