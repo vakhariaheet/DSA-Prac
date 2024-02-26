@@ -71,6 +71,7 @@ class LinkedList {
     if (head->next == head) {
       delete ptr;
       head = NULL;
+      return;
     }
     head->prev->next = head->next;
     head = head->next;
@@ -80,6 +81,8 @@ class LinkedList {
   void insertAtLast() {
     if (head == NULL) {
       head = createNode();
+      head->next = head;
+      head->prev = head;
       return;
     }
     Node* currentNode = head;
@@ -89,6 +92,7 @@ class LinkedList {
     currentNode->next = createNode();
     currentNode->next->prev = currentNode;
     currentNode->next->next = head;
+    head->prev = currentNode->next;
     return;
   }
   void deleteAtLast() {
@@ -109,6 +113,7 @@ class LinkedList {
     Node* ptr = currentNode;
     currentNode = currentNode->prev;
     currentNode->next = head;
+    head->prev = currentNode;
     delete ptr;
     return;
   }
@@ -244,7 +249,6 @@ int main() {
         break;
       case 10:
         return 0;
-        break;
       default:
         cout << "Invalid choice" << endl;
     }
