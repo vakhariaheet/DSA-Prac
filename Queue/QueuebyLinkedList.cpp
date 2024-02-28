@@ -5,6 +5,7 @@ class Node {
  public:
   int data;
   Node* next;
+  Node() { next = NULL; }
 };
 class Queue {
   Node* rear;
@@ -17,24 +18,32 @@ class Queue {
   }
 
  public:
-  Queue() { rear = front = NULL; }
+  int size;
+  Queue() {
+    size = 0;
+    rear = front = NULL;
+  }
   void enqueue() {
     if (front == NULL && rear == NULL) {
+      size++;
       front = rear = createNode();
       return;
     }
     rear->next = createNode();
     rear = rear->next;
+    size++;
   };
   int dequeue() {
     if (front == NULL) {
       cout << "Queue is empty" << endl;
-      return 0;
+      return -1;
     }
+    int val = front->data;
     Node* ptr = front;
     front = front->next;
     delete ptr;
-    return 1;
+    size--;
+    return val;
   }
   int peek() {
     if (front == NULL) {
@@ -76,12 +85,20 @@ int main() {
         q.enqueue();
         break;
       case 2:
-        q.dequeue();
+        if (q.size == 0) {
+          cout << "Queue is empty" << endl;
+          break;
+        }
+        cout << "Dequeued: " << q.dequeue() << endl;
         break;
       case 3:
         q.display();
         break;
       case 4:
+        if(q.size == 0) {
+          cout << "Queue is empty" << endl;
+          break;
+        }
         cout << "Peek: " << q.peek() << endl;
         break;
       case 5:

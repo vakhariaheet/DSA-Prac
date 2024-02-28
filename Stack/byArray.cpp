@@ -3,14 +3,9 @@
 using namespace std;
 
 class Stack {
-  int checkFull() {
-    if (size >= MAX_SIZE) return 1;
-    return 0;
-  }
-
  public:
-  int *arr;
   int MAX_SIZE;
+  int *arr;
   int size;
   Stack(int maxSize) {
     arr = new int[maxSize];
@@ -18,27 +13,27 @@ class Stack {
     size = 0;
   }
   void push() {
-    if (checkFull()) {
+    if (size >= MAX_SIZE) {
       cout << "Stack Overflow" << endl;
       return;
-    } else {
-      int data;
-      cout << "Enter a number";
-      cin >> data;
-      arr[size] = data;
-      size++;
     }
+    int data;
+    cout << "Enter a number";
+    cin >> data;
+    arr[size] = data;
+    size++;
   }
   int pop() {
     if (size == 0) {
       cout << "Stack is already empty" << endl;
-      return 0;
+      return -1;
     }
+    int val = arr[size - 1];
     arr[size - 1] = 0;
     size--;
-    return 1;
+    return val;
   }
-  int peep() {
+  int peek() {
     if (size == 0) {
       cout << "Stack is empty" << endl;
       return -1;
@@ -73,7 +68,7 @@ int main() {
   int maxSize;
   cout << "Enter the size of the stack: ";
   cin >> maxSize;
-  Stack stack(maxSize), stack2(maxSize);
+  Stack stack(maxSize);
   int choice;
   do {
     choice = displayMenu();
@@ -82,11 +77,15 @@ int main() {
         stack.push();
         break;
       case 2: {
-        stack.pop();
+        if(stack.size == 0) {
+          cout << "Stack is already empty" << endl;
+          break;
+        }
+        cout << "Popped " << stack.pop() << endl;
         break;
       }
       case 3:
-        cout << "Peeped " << stack.peep() << endl;
+        cout << "Peeped " << stack.peek() << endl;
         break;
       case 4:
         stack.display();

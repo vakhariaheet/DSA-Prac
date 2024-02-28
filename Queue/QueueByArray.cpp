@@ -14,7 +14,9 @@ class Queue {
   int checkFull() { return rear >= MAX_SIZE; }
 
  public:
+  int size;
   Queue(int maxSize) {
+    size = 0;
     MAX_SIZE = maxSize;
     arr = new int[MAX_SIZE];
     rear = front = -1;
@@ -27,17 +29,22 @@ class Queue {
     if (front == -1 && rear == -1) {
       front = rear = 0;
     }
+
+    size++;
     cout << "Enter a number:";
     cin >> arr[rear];
     rear++;
   }
-  void dequeue() {
-    if (front == -1 || front > rear) {
+  int dequeue() {
+    if (front == -1 || front == rear) {
       cout << "Queue Underflow" << endl;
-      return;
+      return -1;
     }
-    if (front) arr[front] = 0;
+    int val = arr[front];
+    arr[front] = 0;
     front++;
+    size--;
+    return val;
   }
   void display() {
     for (int i = front; i < rear; i++) {
@@ -46,7 +53,7 @@ class Queue {
     cout << endl;
   }
   int peek() {
-    if (front == -1 || front > rear) {
+    if (front == -1 || front == rear) {
       cout << "Queue is empty" << endl;
       return -1;
     }
@@ -80,10 +87,19 @@ int main() {
         queue.enqueue();
         break;
       case 2:
-        queue.dequeue();
+        if (queue.size == 0) {
+          cout << "Queue is empty" << endl;
+          break;
+        }
+        cout << "Dequeued: " << queue.dequeue() << endl;
         break;
       case 3:
+        if (queue.size == 0) {
+          cout << "Queue is empty" << endl;
+          break;
+        }
         cout << "Peek: " << queue.peek() << endl;
+
         break;
       case 4:
         queue.display();

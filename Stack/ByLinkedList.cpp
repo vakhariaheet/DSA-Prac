@@ -12,18 +12,15 @@ class Node {
 class Stack {
   Node* top;
   int checkFull() {
+    // If Max Size is -1 means Stack size is infinite
     if (MAX_SIZE == -1) return 0;
     if (size >= MAX_SIZE) return 1;
     return 0;
   };
-  Node* createNode(int data = -1) {
+  Node* createNode() {
     Node* newNode = new Node();
-    if (data == -1) {
-      cout << "Enter a number";
-      cin >> newNode->data;
-    } else {
-      newNode->data = data;
-    }
+    cout << "Enter a number";
+    cin >> newNode->data;
     size++;
     return newNode;
   }
@@ -31,7 +28,8 @@ class Stack {
  public:
   int MAX_SIZE;
   int size;
-  Stack(int maxElements = -1) {
+  // If Max Size is -1 means Stack size is infinite.
+  Stack(int maxElements) {
     MAX_SIZE = maxElements;
     size = 0;
     top = NULL;
@@ -50,12 +48,12 @@ class Stack {
       cout << "Stack is empty";
       return 0;
     }
+    int val = top->data;
     Node* oldTop = top;
     top = top->next;
-
     delete oldTop;
     size--;
-    return 1;
+    return val;
   }
   int peep() {
     if (top == NULL) {
@@ -110,14 +108,19 @@ int main() {
         break;
       }
       case 2: {
-        stack.pop();
+        if(stack.size == 0) {
+          cout << "Stack is empty" << endl;
+          break;
+        }
+        cout << "The popped element is: " << stack.pop() << endl;
         break;
       }
       case 3: {
-        int val = stack.peep();
-        if (val != -1) {
-          cout << "The top element is: " << val << endl;
+        if(stack.size == 0) {
+          cout << "Stack is empty" << endl;
+          break;
         }
+        cout << "The top element is: " << stack.peep() << endl;
         break;
       }
       case 4: {

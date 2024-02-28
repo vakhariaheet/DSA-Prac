@@ -3,6 +3,7 @@
 using namespace std;
 
 class Queue {
+  // Rear is Last Element and front is First Element
   int MAX_SIZE, front, rear;
   int *arr;
   int checkFull() {
@@ -12,16 +13,19 @@ class Queue {
   }
 
  public:
+ int size;
   Queue(int maxSize) {
     MAX_SIZE = maxSize;
     arr = new int[MAX_SIZE];
     rear = front = -1;
+    size = 0;
   }
   void enqueue() {
     if (checkFull()) {
       cout << "Queue is Full" << endl;
       return;
     }
+    size++;
     if (front == -1) {
       front = 0;
     }
@@ -29,17 +33,21 @@ class Queue {
     cout << "Enter a number:";
     cin >> arr[rear];
   }
-  void dequeue() {
+  int dequeue() {
     if (rear == -1 && front == -1) {
       cout << "Queue is Empty" << endl;
-      return;
+      return -1;
     }
+    size--;
     if (front == rear) {
+      int val = arr[front];
       front = rear = -1;
-      return;
+      return val;
     }
+    int val = arr[front];
     arr[front] = 0;
     front = (front + 1) % MAX_SIZE;
+    return val;
   }
 
   void display() {
@@ -55,7 +63,7 @@ class Queue {
   }
 
   int peek() {
-    if (front == -1 || front > rear) {
+    if (front == -1) {
       cout << "Queue is empty" << endl;
       return -1;
     }
@@ -89,16 +97,24 @@ int main() {
         queue.enqueue();
         break;
       case 2:
-        queue.dequeue();
+        if (queue.size == 0) {
+          cout << "Queue is empty" << endl;
+          break;
+        }
+        cout << "Dequeued: " << queue.dequeue() << endl;
         break;
       case 3:
+        if (queue.size == 0) {
+          cout << "Queue is empty" << endl;
+          break;
+        }
         cout << "Peek: " << queue.peek() << endl;
         break;
       case 4:
         queue.display();
         break;
       case 5:
-        exit(0);
+        return 0;
     }
   }
   return 0;
