@@ -77,16 +77,21 @@ int main() {
         stack.push();
         break;
       case 2: {
-        if(stack.size == 0) {
+        if (stack.size == 0) {
           cout << "Stack is already empty" << endl;
           break;
         }
         cout << "Popped " << stack.pop() << endl;
         break;
       }
-      case 3:
+      case 3: {
+        if (stack.size == 0) {
+          cout << "Stack is already empty" << endl;
+          break;
+        }
         cout << "Peeped " << stack.peek() << endl;
         break;
+      }
       case 4:
         stack.display();
         break;

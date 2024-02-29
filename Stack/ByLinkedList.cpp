@@ -46,7 +46,7 @@ class Stack {
   int pop() {
     if (top == NULL) {
       cout << "Stack is empty";
-      return 0;
+      return -1;
     }
     int val = top->data;
     Node* oldTop = top;
@@ -108,7 +108,7 @@ int main() {
         break;
       }
       case 2: {
-        if(stack.size == 0) {
+        if (stack.size == 0) {
           cout << "Stack is empty" << endl;
           break;
         }
@@ -116,7 +116,7 @@ int main() {
         break;
       }
       case 3: {
-        if(stack.size == 0) {
+        if (stack.size == 0) {
           cout << "Stack is empty" << endl;
           break;
         }

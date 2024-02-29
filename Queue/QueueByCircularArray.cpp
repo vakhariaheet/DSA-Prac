@@ -13,7 +13,7 @@ class Queue {
   }
 
  public:
- int size;
+  int size;
   Queue(int maxSize) {
     MAX_SIZE = maxSize;
     arr = new int[MAX_SIZE];
@@ -55,11 +55,12 @@ class Queue {
       cout << "Queue is empty" << endl;
       return;
     }
-    int i;
-    for (i = front; rear != i; i = (i + 1) % MAX_SIZE) {
-      cout << arr[i] << "\t";
-    }
-    cout << arr[i] << endl;
+    int currentEle = front;
+    do {
+      cout << arr[currentEle] << "\t";
+      currentEle = (currentEle + 1) % MAX_SIZE;
+    } while (currentEle != (rear + 1) % MAX_SIZE);
+    cout << endl;
   }
 
   int peek() {
