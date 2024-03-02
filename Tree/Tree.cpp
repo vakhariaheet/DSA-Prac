@@ -19,17 +19,17 @@ class Node {
 
 /**
  * @brief BinaryTree class represents a binary tree.
- * 
+ *
  * It contains a pointer to the root node of the tree and methods to insert a
  * value into the tree and to traverse the tree in preorder, inorder, and
  * postorder.
- * 
+ *
  * The tree is implemented as a binary search tree, so the values are inserted
  * in such a way that the left child of a node contains a value less than the
  * node's value, and the right child contains a value greater than the node's
  * value.
- * 
-*/
+ *
+ */
 class BinaryTree {
   Node* createNode() {
     Node* newNode = new Node();
@@ -38,9 +38,18 @@ class BinaryTree {
     return newNode;
   }
 
- public:
   Node* root;
+
+ public:
   BinaryTree() { root = NULL; }
+
+  /**
+   * Inserts a new node with the given value into the binary tree.
+   * If the tree is empty, the new node becomes the root.
+   * Otherwise, the new node is inserted at the appropriate position based on
+   * the value of the node.
+
+   */
   void insertValue() {
     if (root == NULL) {
       root = createNode();
@@ -51,16 +60,22 @@ class BinaryTree {
     Node* ptr = root;
     while (ptr != NULL) {
       newNodeParent = ptr;
-      if (ptr->data > newNode->data)
+      if (ptr->data < newNode->data)
         ptr = ptr->right;
       else
         ptr = ptr->left;
     }
-    if (newNodeParent->data > newNode->data)
+    if (newNodeParent->data < newNode->data)
       newNodeParent->right = newNode;
     else
       newNodeParent->left = newNode;
   }
+  /**
+   * We need to do function overloading because we dont want to expose the root
+   * node to the user. We want to keep the root node private and only expose the
+   * public methods to the user.
+   */
+  void preOrder() { preOrder(root); }
   void preOrder(Node* root) {
     if (root == NULL) return;
     cout << root->data << " ";
@@ -84,12 +99,16 @@ class BinaryTree {
     cout << root->data << " ";
     inorder(root->right);
   };
+  void inorder() { inorder(root); };
+
   void postorder(Node* root) {
     if (root == NULL) return;
     postorder(root->left);
     postorder(root->right);
     cout << root->data << " ";
   };
+
+  void postorder() { postorder(root); }
 };
 
 int displayMenu() {
@@ -109,19 +128,23 @@ int displayMenu() {
 
 int main() {
   BinaryTree tree;
+
   while (1) {
     switch (displayMenu()) {
       case 1:
         tree.insertValue();
         break;
       case 2:
-        tree.preOrder(tree.root);
+        // tree.preOrder(tree.root);
+        tree.preOrder();
         break;
       case 3:
-        tree.inorder(tree.root);
+        // tree.inorder(tree.root);
+        tree.inorder();
         break;
       case 4:
-        tree.postorder(tree.root);
+        // tree.postorder(tree.root);
+        tree.postorder();
         break;
       case 5:
         int value;
