@@ -86,7 +86,7 @@ class BinaryTree {
     Node* ptr = root;
     while (ptr != NULL) {
       if (ptr->data == value) return 1;
-      if (ptr->data > value)
+      if (ptr->data < value)
         ptr = ptr->right;
       else
         ptr = ptr->left;
