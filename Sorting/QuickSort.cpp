@@ -20,7 +20,7 @@ int partition(int *arr, int highIndex, int lowIndex) {
   return left;
 }
 
-void quickSort(int *arr, int highIndex, int lowIndex = 0) {
+void quickSort(int *arr, int highIndex, int lowIndex) {
   if (lowIndex >= highIndex) return;
   int partitionIndex = partition(arr, highIndex, lowIndex);
   swap(arr, highIndex, partitionIndex);
@@ -37,7 +37,7 @@ int main() {
   cout << "Before Sorting: ";
   for (int i = 0; i < size; i++) cout << arr[i] << "\t";
   cout << endl;
-  quickSort(arr, size - 1);
+  quickSort(arr, size - 1, 0);
   cout << "After Sorting: ";
   for (int i = 0; i < size; i++) cout << arr[i] << "\t";
   cout << endl;
