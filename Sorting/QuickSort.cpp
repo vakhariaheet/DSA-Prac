@@ -9,21 +9,23 @@ void swap(int *arr, int i, int j) {
 }
 
 int partition(int *arr, int highIndex, int lowIndex) {
-  int pivot = arr[highIndex];
-  int left = lowIndex, right = highIndex;
-  int temp;
-  while (left < right) {
-    while (arr[left] <= pivot && left < right) left++;
-    while (arr[right] >= pivot && left < right) right--;
-    swap(arr, left, right);
+  int pivot = arr[highIndex];  // Choose the last element as the pivot
+  int i = lowIndex - 1;        // Index of smaller element
+
+  for (int j = lowIndex; j < highIndex; j++) {
+    // If current element is smaller than or equal to pivot
+    if (arr[j] <= pivot) {
+      i++;
+      swap(arr[i], arr[j]);
+    }
   }
-  return left;
+  swap(arr[i + 1], arr[highIndex]);
+  return i + 1;
 }
 
 void quickSort(int *arr, int highIndex, int lowIndex) {
   if (lowIndex >= highIndex) return;
   int partitionIndex = partition(arr, highIndex, lowIndex);
-  swap(arr, highIndex, partitionIndex);
   quickSort(arr, partitionIndex - 1, lowIndex);
   quickSort(arr, highIndex, partitionIndex + 1);
 }

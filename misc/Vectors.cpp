@@ -2,6 +2,7 @@
 using namespace std;
 
 int main() {
+  // It maintains a singly Linked List
   vector<int> ve;
 
   // Will add element at end
@@ -60,10 +61,24 @@ int main() {
     cout << it << " ";
   }
 
-  // Will remove first element
-  vecInt
-      .erase(vecInt.begin())
+  // Will Return the size of the vector
+  vecInt.size();
 
-      // Will remove 2nd and 3rd element
-      vecInt.erase(vecInt.begin() + 1, vecInt.begin() + 3)
+  // Will Delete and return the first element of the vector
+  vecInt.pop_back();
+
+  // Will remove first element
+  vecInt.erase(vecInt.begin());
+
+  // Will remove 2nd and 3rd element
+  vecInt.erase(vecInt.begin() + 1, vecInt.begin() + 3);
+
+  // Will tell if the vector is empty
+  vecInt.empty();
+
+  // Will remove all Elements from the vector
+  vecInt.clear();
+
+  // Will Swap all elements of the given vector
+  vecInt.swap(ve);
 }

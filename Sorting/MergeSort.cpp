@@ -3,33 +3,22 @@
 using namespace std;
 void merge(int *arr, int lowIndex, int highIndex) {
   int mid = (lowIndex + highIndex) / 2;
-  int leftHalf[mid], rightHalf[highIndex - mid];
-  for (int i = 0; i < mid; i++) leftHalf[i] = arr[i];
-  for (int i = mid; i < highIndex; i++) rightHalf[i - mid] = arr[i];
-
-  int leftHalfIndex = 0, rightHalfIndex = 0, newArrIndex = 0;
-  while (leftHalfIndex < mid && rightHalfIndex < highIndex - mid) {
-    if (arr[leftHalfIndex] <= rightHalf[rightHalfIndex]) {
-      arr[newArrIndex] = leftHalf[leftHalfIndex];
-      leftHalfIndex++;
+  int leftHalfArrSize = mid - lowIndex + 1;
+  int rightHalfArrSize = highIndex - mid;
+  int leftHalf[leftHalfArrSize], rightHalf[rightHalfArrSize];
+  for (int i = 0; i < leftHalfArrSize; i++) leftHalf[i] = arr[lowIndex + i];
+  for (int i = 0; i < rightHalfArrSize; i++) rightHalf[i] = arr[mid + 1 + i];
+  int i = 0, j = 0, k = lowIndex;
+  while (i < leftHalfArrSize && j < rightHalfArrSize) {
+    if (leftHalf[i] <= rightHalf[j]) {
+      arr[k++] = leftHalf[i++];
     } else {
-      arr[newArrIndex] = rightHalf[rightHalfIndex];
-      rightHalfIndex++;
+      arr[k++] = rightHalf[j++];
     }
-    newArrIndex++;
   }
+  while (i < leftHalfArrSize) arr[k++] = leftHalf[i++];
 
-  while (leftHalfIndex < mid) {
-    arr[newArrIndex] = leftHalf[leftHalfIndex];
-    newArrIndex++;
-    leftHalfIndex++;
-  }
-
-  while (rightHalfIndex < highIndex - mid) {
-    arr[newArrIndex] = rightHalf[rightHalfIndex];
-    newArrIndex++;
-    rightHalfIndex++;
-  }
+  while (j < rightHalfArrSize) arr[k++] = rightHalf[j++];
 }
 
 void mergeSort(int *arr, int lowIndex, int highIndex) {
