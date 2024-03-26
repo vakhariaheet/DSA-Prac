@@ -13,7 +13,7 @@ int partition(int *arr, int highIndex, int lowIndex) {
   int i = lowIndex - 1;        // Index of smaller element
 
   for (int j = lowIndex; j < highIndex; j++) {
-       if (arr[j] <= pivot) {
+    if (arr[j] <= pivot) {
       i++;
       swap(arr[i], arr[j]);
     }
