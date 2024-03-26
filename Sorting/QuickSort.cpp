@@ -15,10 +15,10 @@ int partition(int *arr, int highIndex, int lowIndex) {
   for (int j = lowIndex; j < highIndex; j++) {
     if (arr[j] <= pivot) {
       i++;
-      swap(arr[i], arr[j]);
+      swap(arr, i, j);
     }
   }
-  swap(arr[i + 1], arr[highIndex]);
+  swap(arr, i + 1, highIndex);
   return i + 1;
 }
 
